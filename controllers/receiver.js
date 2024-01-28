@@ -70,3 +70,37 @@ exports.login = async (req, res) => {
         });
     }
 }
+
+exports.getAllReq=async(req,res)=>{
+    
+    try {
+        const ngo_id=req.params.id;
+        const ngo=await Receiver.findById(ngo_id).populate({
+            path: 'requestlist',
+            populate: {
+                path: 'medicine',
+                model: 'Medicine', 
+            },
+        })
+        .exec();
+
+
+        if(ngo){
+            const requestList = ngo.requestlist; 
+            res.status(200).json({
+                requestList
+            });
+        }
+        else{
+            res.status(400).json({
+                message: "Receiver doesn't exist"
+            })
+        }
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            error,
+            message: 'Something Went Wrong'
+        });
+    }
+}

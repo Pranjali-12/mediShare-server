@@ -16,8 +16,8 @@ const requestSchema=new mongoose.Schema({
         required:true
     },
     accept:{
-        type:Boolean,
-        default:false
+        type:String,
+        default:'pending'
     },
 },{timestamps:true});
 

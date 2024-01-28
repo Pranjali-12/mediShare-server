@@ -168,3 +168,17 @@ exports.requestMed = async (req, res) => {
         });
     }
 }
+
+exports.getmedbyid = async (req, res) => {
+    try {
+      const medicine = await Medicine.findById(req.params.id).populate('donor').exec(); // Assuming you're using Mongoose for MongoDB
+      if (!medicine) {
+        return res.status(404).json({ message: 'Medicine not found' });
+      }
+      res.json(medicine);
+    } catch (error) {
+      console.error('Error fetching medicine by ID:', error);
+      res.status(500).json({ message: 'Server Error' });
+    }
+  };
+
