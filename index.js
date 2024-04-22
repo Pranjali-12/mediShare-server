@@ -9,8 +9,10 @@ const app=express();
 app.use(bodyParser());
 app.use(cors());
 
-const DATABASE_URL="mongodb+srv://pranjali:pranjali@cluster0.uwykvxw.mongodb.net/"
-const PORT=2000;
+env.config();
+
+const DATABASE_URL=process.env.DATABASE_URL
+const PORT=process.env.PORT;
 
 app.listen(PORT,()=>{
     console.log(`Server running at ${PORT}`)
